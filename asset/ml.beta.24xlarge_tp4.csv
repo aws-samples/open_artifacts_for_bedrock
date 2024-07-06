@@ -1,0 +1,11 @@
+﻿instance_type,tp,instance_count,concurrency,error_rate,prompt_token_count_mean,prompt_token_throughput,completion_token_count_mean,completion_token_throughput,latency_mean,latency_p50,latency_p95,latency_p99,transactions_per_minute
+ml.beta.24xlarge,4,1,1,0,2287,131,513,29,17.32409,17.32,17.32,17.32,3
+ml.beta.24xlarge,4,1,4,0,2287,499,513,112,18.26619,18.27,18.29,18.3,13
+ml.beta.24xlarge,4,1,8,0,2287,940,513,210,19.40982,19.4,19.45,19.45,24
+ml.beta.24xlarge,4,1,16,0,2287,1566,513,351,23.26109,23.25,23.34,23.34,40
+ml.beta.24xlarge,4,1,32,0,2287,2790,513,626,25.98325,26.13,26.2,26.2,73
+ml.beta.24xlarge,4,1,48,0,2287,3582,513,803,30.283,30.5,30.62,30.63,94
+ml.beta.24xlarge,4,1,64,0,2287,4242,513,951,34.1296,34.33,34.46,34.48,111
+ml.beta.24xlarge,4,1,80,0,2287,4656,513,1044,38.59657,39.01,39.24,39.25,122
+ml.beta.24xlarge,4,1,96,0,2287,5025,513,1127,42.95007,43.36,43.63,43.64,132
+ml.beta.24xlarge,4,1,128,0,2287,5167,513,1159,54.37339,56.18,56.57,56.61,135
