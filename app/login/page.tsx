@@ -41,7 +41,7 @@ export default function Login() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#fff3e6]">
       <div className="w-full max-w-md px-8 py-6 bg-white rounded-lg shadow-md">
-        <h3 className="text-2xl font-bold text-center text-red-500 mb-6">Login</h3>
+        <h3 className="text-2xl font-bold text-center text-red-500 mb-6">Open Arifacts for Bedrock</h3>
         <form onSubmit={handleSubmit}>
           <div className="space-y-4">
             <div>
