@@ -15,6 +15,12 @@ Artifacts是Anthropic推出的一项新功能，它扩展了用户与Claude模�
 4. 新增图片上传加入多模态能力，例如可以上传excel表格，pdf截图，并生成代码做数据可视化分析。
 5. 其他小功能，例如清除上下文，复制粘贴直接上传图片等
 
+## 视频Demo
+* 公众号 [复刻Open Artifacts](https://mp.weixin.qq.com/s/HsMAkLHsWNrkfsp9N11bVA)
+* Youtube English version
+[![Video Demo](asset/open_artifacts_bedrock_en-cover.jpg)](https://youtu.be/y6n1t-3OUNw)
+
+
 ## 环境准备
 - 可以在本地mac环境或者Amazon EC2实例(推荐Amazon Linux 2023)，CPU机型即可，无需GPU实例
 1. 安装nodejs和yarn

@@ -16,6 +16,9 @@ Users can view, edit, and build Claude's creations in real-time, seamlessly inte
 4. Support uploading CSV spreadsheets and generating code to read the file directly for data analysis.
 5. Other features such as simple user login/logout, clearing context, copying and pasting to directly upload images, etc.
 
+
+## Video Demo
+[![Video Demo](asset/open_artifacts_bedrock_en-cover.jpg)](https://youtu.be/y6n1t-3OUNw)
 ## Environment Preparation
 - Can be set up in a local Mac environment or on an Amazon EC2 instance (Amazon Linux 2023 is recommended), a CPU instance is sufficient, no GPU instance required
 1. Install nodejs and yarn
