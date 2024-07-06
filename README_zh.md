@@ -18,7 +18,7 @@ Artifacts是Anthropic推出的一项新功能，它扩展了用户与Claude模�
 ## 视频Demo
 * 公众号 [复刻Open Artifacts](https://mp.weixin.qq.com/s/HsMAkLHsWNrkfsp9N11bVA)
 * Youtube English version
-[![Video Demo](asset/open_artifacts_bedrock_en-cover.jpg)](https://youtu.be/y6n1t-3OUNw)
+[![Video Demo](asset/open_artifacts_bedrock_en-cover.jpg)](https://youtu.be/KqqVYtA_X-8)
 
 
 ## 环境准备

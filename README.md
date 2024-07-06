@@ -11,14 +11,14 @@ Users can view, edit, and build Claude's creations in real-time, seamlessly inte
 - The main features currently include:
 1. Support for Bedrock Claude 3.5 integration
 2. Direct use of locally created docker images as sandboxes, ensuring data privacy and security, improving development convenience and execution performance.
-3. Support for HTML/JS frontend rendering, allowing generation of HTML/JS code that can be directly rendered in the browser and support real-time interaction.
+3. Support HTML/JS frontend rendering, allowing generation of HTML/JS code that can be directly rendered in the browser and support real-time interaction.
 4. Support multimodal capabilities, e.g., uploading spreadsheets screenshots, PDF screenshots, and generating code for data visualization analysis.
 4. Support uploading CSV spreadsheets and generating code to read the file directly for data analysis.
 5. Other features such as simple user login/logout, clearing context, copying and pasting to directly upload images, etc.
 
 
 ## Video Demo
-[![Video Demo](asset/open_artifacts_bedrock_en-cover.jpg)](https://youtu.be/y6n1t-3OUNw)
+[![Video Demo](asset/open_artifacts_bedrock_en-cover.jpg)](https://youtu.be/KqqVYtA_X-8)
 ## Environment Preparation
 - Can be set up in a local Mac environment or on an Amazon EC2 instance (Amazon Linux 2023 is recommended), a CPU instance is sufficient, no GPU instance required
 1. Install nodejs and yarn
