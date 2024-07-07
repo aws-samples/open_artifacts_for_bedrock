@@ -40,8 +40,11 @@ export function Chat({
   const latestMessageWithToolInvocation = [...messages].reverse().find(message => message.toolInvocations && message.toolInvocations.length > 0)
   const latestToolInvocation = latestMessageWithToolInvocation?.toolInvocations?.[0]
   const code = latestToolInvocation ? latestToolInvocation.args.code : undefined;
-  const exeResult = data?.length === 2 && data[1].state === 'complete' ? data[1].stdout:'';
+  // get the last element of data
+
+  const exeResult = data?.length && data.slice(-1)[0]?.state === 'complete' ? data.slice(-1)[0]?.stdout:'';
   // console.log('data:',data)
+  // console.log('exeResult:',exeResult)
 
   const customSubmit = useCallback(
     (event?: { preventDefault?: () => void },
