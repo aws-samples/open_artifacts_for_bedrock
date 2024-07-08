@@ -210,7 +210,7 @@ export function Chat({
           <div className="flex flex-wrap gap-2">
             {files.map((file,index) => (
               <div key={index} className="relative w-24 h-24">
-                 {renderFilePreview(file)}{file.name}
+                 {renderFilePreview(file)}...{file.name.slice(-12)}
                 <button
                   type="button"
                   onClick={() => removeFile(file.id)}
