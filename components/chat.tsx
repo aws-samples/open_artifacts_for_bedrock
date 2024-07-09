@@ -1,5 +1,5 @@
 import { useState, useEffect, FormEvent, useCallback, useRef } from 'react'
-import { Terminal, Image as ImageIcon ,Paperclip,Trash2,FileText, FileSpreadsheet, LogOut} from 'lucide-react'
+import { Terminal, Image as ImageIcon ,Paperclip,Trash2,FileText, FileSpreadsheet, FileUp,RefreshCw} from 'lucide-react'
 import { Message } from 'ai/react'
 import type {
   ChatRequestOptions,
@@ -22,6 +22,8 @@ export function Chat({
   append,
   handleInputChange,
   handleSubmit,
+  reload,
+  isLoading,
   setInput,
   clearMessages
 }: {
@@ -31,6 +33,8 @@ export function Chat({
   append: (e: any, options: ChatRequestOptions) => any,
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void,
+  reload: (chatRequestOptions?: ChatRequestOptions | undefined) => Promise<string | null | undefined>,
+  isLoading:boolean,
   setInput: (e: any) => void,
   clearMessages: () => void
 }) {
@@ -44,7 +48,7 @@ export function Chat({
 
   const exeResult = data?.length && data.slice(-1)[0]?.state === 'complete' ? data.slice(-1)[0]?.stdout:'';
   // console.log('data:',data)
-  // console.log('exeResult:',exeResult)
+  // console.log('latestToolInvocation:',latestToolInvocation)
 
   const customSubmit = useCallback(
     (event?: { preventDefault?: () => void },
@@ -52,9 +56,10 @@ export function Chat({
     ) => {
       event?.preventDefault?.();
       if (!input && files.length === 0) return;
-      const content = code ? `Here is the code:\n${code} \n\nHere is the execution output:\n${exeResult} \n\nHere is the user request:\n${input}` : input;
 
-
+      //since AI SDK for Claude does't support tool content
+      //so I modify the last user message to include the tool invocation results
+      const content = code ? `## code:\n${code} \n\n## tool executed result:\n${exeResult} \n\nHuman:\n${input}` : input;
       append({
         content,
         role: 'user',
@@ -69,22 +74,6 @@ export function Chat({
     },
     [input, append],
   );
-
-  const csvToMarkdown = (csv: string): string => {
-    const rows = csv.trim().split('\n').map(row => row.split(','));
-    const headers = rows[0];
-    const body = rows.slice(1);
-
-    let markdown = '| ' + headers.join(' | ') + ' |\n';
-    markdown += '| ' + headers.map(() => '---').join(' | ') + ' |\n';
-    body.forEach(row => {
-      markdown += '| ' + row.join(' | ') + ' |\n';
-    });
-
-    return markdown;
-  };
-
-
 
   const processFile = (file: File): Promise<FileData> => {
     return new Promise((resolve, reject) => {
@@ -252,9 +241,9 @@ export function Chat({
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="p-2 bg-[#FFE7CC] rounded-lg"
+            className="p-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
           >
-            <Paperclip className="text-[#FF8800]" />
+            <FileUp size={24} />
           </button>
           <input
             type="file"
@@ -264,6 +253,14 @@ export function Chat({
             multiple
             className="hidden"
           />
+            <button
+            type="button"
+            onClick={reload} 
+            disabled={isLoading}
+            className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+          >
+            <RefreshCw size={24} />
+          </button>
         </div>
       </form>
     </div>

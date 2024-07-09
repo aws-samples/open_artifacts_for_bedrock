@@ -7,8 +7,7 @@ import {
   StreamingTextResponse,
   StreamData,
   streamText,
-  tool,
-  convertToCoreMessages,
+  tool
 } from 'ai'
 // import { anthropic } from '@ai-sdk/anthropic'
 import { bedrock } from '@ai-sdk/amazon-bedrock';
@@ -17,9 +16,7 @@ import {
   runJs
 } from '@/lib/local-sandbox'
 import {type FileData} from '@/components/chat';
-import { writeFile } from 'fs/promises';
-import { tmpdir } from 'os';
-import { join } from 'path';
+
 import * as path from 'path';
 import * as fs from 'fs';
 import { fileURLToPath } from 'url';
@@ -105,7 +102,8 @@ export async function POST(req: Request) {
   if (!fs.existsSync(workingDirPath)) {
     fs.mkdirSync(workingDirPath, { recursive: true });
   }
-  const initialMessages = messages.slice(0, -1) as initMessages [];
+
+  const initialMessages = messages.slice(0, -1) as CoreMessage [];
   const currentMessage = messages[messages.length - 1];
   const fileData =  data?JSON.parse(data):null;
   let imageData : string []= [];
@@ -130,17 +128,31 @@ export async function POST(req: Request) {
   const fileMessages = imageData.length>0? 
                     (imageData as []).map(it => ({ type: 'image', image: it})) as ImagePart[]:
                     (textFileName.length>0 ? textFileName.map(it => ({ type: 'text', text: `Here is user's uploaded file name:${it}`})) as TextPart[]:[])
-  const userContent = [
-    { type: 'text', text: currentMessage.content as string },
-    ...fileMessages
-  ]
-  const newMessages =[
-    ...initialMessages,
-    {
-      role: 'user',
-      content: userContent as UserContent,
-    },
-  ];
+  
+  let userContent;
+  let newMessages;
+  if (currentMessage.role === 'user'){
+    userContent = [
+      { type: 'text', text: currentMessage.content as string },
+      ...fileMessages
+    ]
+    newMessages =[
+      ...initialMessages,
+      {
+        role: 'user',
+        content: userContent as UserContent,
+      },
+    ];
+  }else{
+    newMessages = messages;
+  }
+
+
+  //only pass the last two messages
+  newMessages = newMessages.slice(-3)
+
+  console.log('messages:',newMessages)
+
   // console.log(newMessages)
   let streamData: StreamData = new StreamData()
 

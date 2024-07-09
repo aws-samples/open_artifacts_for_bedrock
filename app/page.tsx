@@ -5,7 +5,9 @@ import { useSession,signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { useChat } from 'ai/react'
-
+import type {
+  Message,
+} from '@ai-sdk/ui-utils';
 import { Chat } from '@/components/chat'
 import { SideView } from '@/components/side-view'
 import { LogOut } from 'lucide-react'
@@ -23,9 +25,16 @@ export default function Home() {
   }
   const userID = session?.user?.name || 'default-user-id'
 
-  const { messages, setMessages, input, setInput, append, handleInputChange, handleSubmit, data } = useChat({
+  const { messages, setMessages, reload, input,isLoading, setInput, append, handleInputChange, handleSubmit, data } = useChat({
     api: '/api/chat',
     body: { userID },
+    onResponse: (response: Response) => {
+      console.log('Received response from server:', response)
+    },
+    onFinish: (message: Message) => {
+      console.log('Finished streaming message:', message)
+    },
+
   })
 
   // For simplicity, we care only about the latest message that has a tool invocation
@@ -62,9 +71,11 @@ export default function Home() {
           data ={data}
           messages={messages}
           append={append}
+          isLoading={isLoading}
           input={input}
           handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}
+          reload={reload}
           setInput={setInput}
           clearMessages={clearMessages}
         />
