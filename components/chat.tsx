@@ -10,7 +10,7 @@ import { JSONValue } from 'ai';
 
 export interface FileData {
   id: string;
-  type: 'image' | 'text' | 'csv';
+  type: 'image' | 'text' | 'csv'| 'xlsx';
   content: string;
   name: string;
 }
@@ -91,14 +91,19 @@ export function Chat({
       const reader = new FileReader();
       reader.onload = async (e) => {
         const result = e.target?.result as string;
-        let type: 'image' | 'text' | 'csv';
+        let type: 'image' | 'text' | 'csv' | 'xlsx';
         let content = result;
         if (file.type.startsWith('image/')) {
           type = 'image';
         } else if (file.name.endsWith('.csv')) {
-          type = 'csv';
-          // content = csvToMarkdown(result)
-          
+          type = 'csv';  
+        } else if (file.name.endsWith('.xlsx')) {
+          type = 'xlsx';    
+           // Convert ArrayBuffer to Base64 string
+          const uint8Array = new Uint8Array((result as any ) as ArrayBuffer);
+          const binaryString = uint8Array.reduce((data, byte) => data + String.fromCharCode(byte), '');
+          content = btoa(binaryString);
+          // console.log(content)
         } else {
           type = 'text';
         }
@@ -113,7 +118,9 @@ export function Chat({
 
       if (file.type.startsWith('image/')) {
         reader.readAsDataURL(file);
-      } else {
+      }else if (file.name.endsWith('.xlsx')) {
+        reader.readAsArrayBuffer(file);
+      }else {
         reader.readAsText(file);
       }
     });
@@ -155,6 +162,8 @@ export function Chat({
         return <FileText className="w-full h-full text-gray-600" />;
       case 'csv':
         return <FileSpreadsheet className="w-full h-full text-green-600" />;
+      case 'xlsx':
+          return <FileSpreadsheet className="w-full h-full text-green-600" />;
     }
   };
 
@@ -175,7 +184,7 @@ export function Chat({
                 ) : (
                   <div className="p-2">
                     <p>{fileData.name}</p>
-                    <p>{fileData.type === 'csv' ? 'CSV file' : 'Text file'}</p>
+                    <p>{fileData.type === 'csv' ? 'CSV file' : (fileData.type === 'xlsx' ? 'XLSX file': 'Text file')}</p>
                   </div>
                 )}
               </div>
@@ -251,7 +260,7 @@ export function Chat({
             type="file"
             ref={fileInputRef}
             onChange={handleFileChange}
-            accept="image/*,text/*,.csv"
+            accept="image/*,text/*,.csv,.xlsx"
             multiple
             className="hidden"
           />

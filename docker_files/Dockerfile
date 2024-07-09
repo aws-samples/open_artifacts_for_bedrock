@@ -31,7 +31,8 @@ RUN wget https://noto-website-2.storage.googleapis.com/pkgs/NotoSansCJKsc-hinted
 
 
 # Install Python packages using pip
-RUN pip install --no-cache-dir numpy pandas scipy scikit-learn matplotlib seaborn jupyter_client diagrams requests bs4 requests
+RUN pip install --no-cache-dir numpy pandas scipy scikit-learn matplotlib seaborn jupyter_client \
+    diagrams requests bs4 requests openpyxl
 
 # Set default command
 CMD ["python"]

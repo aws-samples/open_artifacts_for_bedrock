@@ -62,11 +62,6 @@ type initMessages ={
 
 function saveCSVToFile(fileData: FileData, outputDir: string): Promise<string> {
   return new Promise((resolve, reject) => {
-    // if (fileData.type !== 'csv') {
-    //   reject(new Error('File is not a CSV'));
-    //   return;
-    // }
-
     const fileName = `${fileData.name}`;
     const filePath = path.join(outputDir, fileName);
 
@@ -80,6 +75,25 @@ function saveCSVToFile(fileData: FileData, outputDir: string): Promise<string> {
     });
   });
 }
+
+function saveXLSXToFile(fileData: FileData, outputDir: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    // Convert base64 to binary
+    const binaryData = Buffer.from(fileData.content, 'base64');
+    const fileName = `${fileData.name}`;
+    const filePath = path.join(outputDir, fileName);
+    // Write the file
+    fs.writeFile(filePath, binaryData, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        console.log(`save file:${filePath}`)
+        resolve(filePath);
+      }
+    });
+  });
+}
+
 
 export async function POST(req: Request) {
 
@@ -100,11 +114,15 @@ export async function POST(req: Request) {
     fileData.map(async (it:FileData) => {
       if (it.type === 'image') {
         imageData.push(it.content);
-      }else if (it.type === 'text' || it.type === 'csv') {
+      }else if (it.type === 'csv') {
         textFileName.push(it.name);
         const savedFilePath = await saveCSVToFile(it, workingDirPath);
         console.log(`CSV file saved to: ${savedFilePath}`);
-      }else {
+      }else if (it.type === 'xlsx') {
+        textFileName.push(it.name);
+        const savedFilePath = await saveXLSXToFile(it, workingDirPath);
+        console.log(`XLSX file saved to: ${savedFilePath}`);
+      } else if (it.type !== 'text') {
         console.log(`${it.type} not supported yet`)
       }
     })
