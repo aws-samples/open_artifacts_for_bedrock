@@ -2,13 +2,13 @@
 # yarn lockfile v1
 
 
-"@ai-sdk/amazon-bedrock@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@ai-sdk/amazon-bedrock/-/amazon-bedrock-0.0.1.tgz#f39fb2e28bb4320e97b79ff876f61ff938760032"
-  integrity sha512-FWsGrpHVhZzBQ0umoJcJYf10BoG2Vj7NVilJuPqS8AatdeQdYtxUCsxIbhXckTnMN2axra+X049hTGbEiQmCoQ==
+"@ai-sdk/amazon-bedrock@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@ai-sdk/amazon-bedrock/-/amazon-bedrock-0.0.5.tgz#9c5bb80c16e5dfd44cadbac8441c088c147b17ce"
+  integrity sha512-aljnhH0tX0emRlUNN/xYpFegRtfByATFi17ZK79ayaPANMrqXbybgGrfk60dh+BBR5ReUdW7d4pH2Xzbi4V3Sw==
   dependencies:
-    "@ai-sdk/provider" "0.0.10"
-    "@ai-sdk/provider-utils" "0.0.16"
+    "@ai-sdk/provider" "0.0.12"
+    "@ai-sdk/provider-utils" "1.0.2"
     "@aws-sdk/client-bedrock-runtime" "3.602.0"
 
 "@ai-sdk/anthropic@^0.0.23":
@@ -39,6 +39,16 @@
     nanoid "3.3.6"
     secure-json-parse "2.7.0"
 
+"@ai-sdk/provider-utils@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@ai-sdk/provider-utils/-/provider-utils-1.0.2.tgz#9ae1b277721b86985aec97a504c655993cce5980"
+  integrity sha512-57f6O4OFVNEpI8Z8o+K40tIB3YQiTw+VCql/qrAO9Utq7Ti1o6+X9tvm177DlZJL7ft0Rwzvgy48S9YhrEKgmA==
+  dependencies:
+    "@ai-sdk/provider" "0.0.12"
+    eventsource-parser "1.1.2"
+    nanoid "3.3.6"
+    secure-json-parse "2.7.0"
+
 "@ai-sdk/provider@0.0.10":
   version "0.0.10"
   resolved "https://registry.yarnpkg.com/@ai-sdk/provider/-/provider-0.0.10.tgz#be84af0b4cb2dad0ebc85b1070b4f47404cfb1f1"
@@ -50,6 +60,13 @@
   version "0.0.11"
   resolved "https://registry.yarnpkg.com/@ai-sdk/provider/-/provider-0.0.11.tgz#ec2631e2c9f7ac166d75081fb578a0f4b78a7d51"
   integrity sha512-VTipPQ92Moa5Ovg/nZIc8yNoIFfukZjUHZcQMduJbiUh3CLQyrBAKTEV9AwjPy8wgVxj3+GZjon0yyOJKhfp5g==
+  dependencies:
+    json-schema "0.4.0"
+
+"@ai-sdk/provider@0.0.12":
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/@ai-sdk/provider/-/provider-0.0.12.tgz#74d594c1bfd498ac6411610d37aacbf40adabba0"
+  integrity sha512-oOwPQD8i2Ynpn22cur4sk26FW3mSy6t6/X/K1Ay2yGBKYiSpRyLfObhOrZEGsXDx+3euKy4nEZ193R36NM+tpQ==
   dependencies:
     json-schema "0.4.0"
 
