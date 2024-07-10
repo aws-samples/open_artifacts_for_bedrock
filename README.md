@@ -48,7 +48,8 @@ This command will create a Docker image named python3.10. If you need to install
 
 ### 2. Configure .env, set AK SK, and enable permissions
 1. Create a .env file in the open_artifacts directory with the following content:  
-The default username and password is admin/admin, can you can change them via setting in .env file.
+The default username and password is admin/admin, can you can change them via setting in .env file.  
+If you did not set the AWS_ACCESS_KEY_ID or AWS_SECRET_ACCESS_KEY, then you need to assign a service role to the ec2.
 ```
 AWS_ACCESS_KEY_ID=*******
 AWS_SECRET_ACCESS_KEY=******
