@@ -61,7 +61,32 @@ MODEL_ID=anthropic.claude-3-5-sonnet-20240620-v1:0
 USERNAME=
 PASSWORD=
 
-2. 如果在本地启用执行，执行成功会打开本地3000的ui端口. 通过http://localhost:3000访问
+2. (可选) 如果您想使用 IAM 角色而不是 AK/SK
+IAM 角色的权限
+创建一个名为 artifacts-service-role 的新 IAM 角色，设置如下：
+可信实体类型：AWS 服务
+服务：EC2
+使用案例：EC2 - 允许 EC2 实例代表您调用 AWS 服务。
+跳过"添加权限"，先创建这个角色。
+角色创建后，通过创建内联策略添加权限，如下所示：
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "bedrock:*",
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+最后，将此 IAM 实例配置文件（IAM 角色）绑定到您的 EC2 实例。
+
+3. 如果在本地启用执行，执行成功会打开本地3000的ui端口. 通过http://localhost:3000访问
 ```bash
 yarn
 yarn dev
