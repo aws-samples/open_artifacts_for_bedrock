@@ -46,10 +46,10 @@ docker build -t python3.10 .
 ```
 This command will create a Docker image named python3.10. If you need to install a specific Python version or other dependencies, you can modify the Dockerfile.
 
-### 2. Configure .env, set AK SK, and enable permissions
+### 2. Configure .env, set AK SK, and enable permissions 
 1. Create a .env file in the open_artifacts directory with the following content:  
 The default username and password is admin/admin, can you can change them via setting in .env file.  
-If you did not set the AWS_ACCESS_KEY_ID or AWS_SECRET_ACCESS_KEY, then you need to assign a service role to the ec2.
+If you did not set the AWS_ACCESS_KEY_ID or AWS_SECRET_ACCESS_KEY, then you need to bind a IAM role to your EC2.
 ```
 AWS_ACCESS_KEY_ID=*******
 AWS_SECRET_ACCESS_KEY=******
@@ -59,6 +59,33 @@ MODEL_ID=anthropic.claude-3-5-sonnet-20240620-v1:0
 USERNAME=
 PASSWORD=
 ```
+
+2. (Optional) In case you want to use IAM role instead of AK/SK
+- IAM Role's permission
+Create a new IAM role with name artifacts-service-role and settings below:
+   - Trusted entity type: AWS Service
+   - Service: EC2
+   - Use Case: EC2 - Allows EC2 instances to call AWS services on your behalf.
+
+Skip "Add permission" and create this role first.
+After the role is created, and then add permission by creating inline policy as below:
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "bedrock:*",
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+Finally, Bind this IAM instance profile (IAM Role) to your EC2 instance.
+
 
 2. If running locally, execute the following. Upon successful execution, it will open the local UI port 3000. Access via http://localhost:3000
 ```bash
