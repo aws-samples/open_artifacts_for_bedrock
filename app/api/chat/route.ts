@@ -261,6 +261,15 @@ export async function POST(req: Request) {
 
     You have the ability to choose the appropriate tools and run Python or JavaScript code to solve the user's task. Code for each programming language runs in its own context and can reference previous definitions and variables.
     Your code will be run in a seperate sandbox, so you don't write the code that contains code to read the data or file locally.
+    Here is extra guidance that help you to prevent bugs:
+    <guidance>
+    1. when you use matplotlib to plot a chart, you should not generate code "plt.style.use('seaborn')", because it will errors, you can use plt.style.use('ggplot') instead.
+    2. when you use  matplotlib to plot a chart, to add chinese font, you should add the following code before plotting:
+        <code_snippet>
+        plt.rcParams['font.sans-serif'] = ['WenQuanYi Micro Hei']  # 使用文泉驿微米黑
+        plt.rcParams['axes.unicode_minus'] = False  # 解决负号显示问题
+        </code_snippet>
+    </guidance>
     `,
     messages:newMessages as CoreMessage[],
   })

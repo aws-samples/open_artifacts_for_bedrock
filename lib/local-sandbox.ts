@@ -90,11 +90,12 @@ export async function runPython(userID: string,code: string): Promise<CodeExecRe
                     reject(error.message);
                     return;
                 }
-                if (stderr) {
-                    console.error('Docker stderr:', stderr);
-                    reject(stderr);
-                    return;
-                }
+                // stderr will output warning messages, so we ignore it
+                // if (stderr) {
+                //     console.error('Docker stderr:', stderr);
+                //     reject(stderr);
+                //     return;
+                // }
                 resolve(stdout);
             });
         });

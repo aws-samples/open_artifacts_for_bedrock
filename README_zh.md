@@ -113,6 +113,32 @@ the planets should be orbiting around the sun. Add a light source to the sun and
 ```
 ![alt text](asset/image2.png)
 
+### 页面设计，screenshot2code
+- 提示词：
+```
+Create a cool and impressive sales dashboard page design using Tailwind CSS and React JS. The dashboard should display rankings for different platforms (JD.com, Taobao, VIP.com) including product category rankings, store rankings, GMV (Gross Merchandise Value), number of orders, and other relevant metrics
+```
+* 中文
+```
+使用tailwind css, react js, 做一个酷炫销售dashboard的页面设计，分不同平台（京东、淘宝、唯品会）的商品类目排名，店铺排名，GMV，订单数等
+```
+
+- 右侧窗口可以看到制作出的设计界面
+![alt text](asset/image7-1.png)
+- 以上的效果还比较简陋，我们给他一张设计稿图作为参考，这样artifact做出的设计图更加准确
+![alt text](asset/image7-2.png)
+复制图片到聊天窗，并添加新提示
+```
+please use the style in attached image to refine the page
+```
+* 中文
+```
+参考这个图的样式进行修改
+```
+- 这次可以看到右侧窗口输出的页面，效果更加接近参考图
+![alt text](asset/image7-3.png)
+
+
 ### 数据可视化分析（图片分析）
 #### case 1
 - 上传图片1(可复制并粘贴进对话框)

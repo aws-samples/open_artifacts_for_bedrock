@@ -115,6 +115,26 @@ the planets should be orbiting around the sun. Add a light source to the sun and
 ```
 ![alt text](asset/image2.png)
 
+### Frontend webpage design，screenshot2code
+- Enter Prompt：
+```
+Create a cool and impressive sales dashboard page design using Tailwind CSS and React JS. The dashboard should display rankings for different platforms (JD.com, Taobao, VIP.com) including product category rankings, store rankings, GMV (Gross Merchandise Value), number of orders, and other relevant metrics
+```
+
+- And we can see the result
+![alt text](asset/image7-1.png)
+- Let's give it an image as reference
+![alt text](asset/image7-2.png)
+copy the image and past it into the chat inputbox.
+Enter prompt
+```
+please use the style in attached image to refine the page
+```
+
+- Now you can see the new style is pretty cool and very closed to the reference style.
+![alt text](asset/image7-3.png)
+
+
 ### Data Visualization Analysis (Visual QA)
 #### case 1
 - Upload image (You can also directly copy and paste the image into chat input box)
