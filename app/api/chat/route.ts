@@ -167,8 +167,8 @@ export async function POST(req: Request) {
   }
 
 
-  //only pass the last two messages
-  newMessages = newMessages.slice(-3)
+  //only pass the last 3 rounds messages
+  newMessages = newMessages.slice(-7)
 
   console.log('newMessages:',newMessages)
 
