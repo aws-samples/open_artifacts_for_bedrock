@@ -5,8 +5,8 @@ import type {
   ChatRequestOptions,
   UseChatOptions,
 } from '@ai-sdk/ui-utils';
-import { Input } from '@/components/ui/input'
 import { JSONValue } from 'ai';
+import { Textarea } from './ui/textarea';
 
 export interface FileData {
   id: string;
@@ -231,12 +231,20 @@ export function Chat({
           >
             <Trash2 size={24} />
           </button>
-          <Input
+          <Textarea
             className="ring-0 flex-grow"
             placeholder="Ask Claude..."
             value={input}
             onChange={(event) => setInput(event.target.value)}
             onPaste={handlePaste}
+            onKeyDown={function (e) {
+              if (e.key === 'Enter' && (!e.shiftKey)) {
+                e.preventDefault();
+                customSubmit(e, {
+                  data: files.length ? JSON.stringify(files) : undefined
+                })
+              }
+            }}
           />
           <button
             type="button"
