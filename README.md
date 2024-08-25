@@ -35,9 +35,9 @@ sudo chmod 666 /var/run/docker.sock
 ```
 ## Usage Instructions
 ### 1. Configure docker image
-1. Enter open_artifacts/docker_files
+1. Enter open_artifacts_for_bedrock/docker_files
 ```bash
-cd open_artifacts/docker_files
+cd open_artifacts_for_bedrock/docker_files
 ```
 
 2. Open a terminal in this folder (containing Dockerfile) and run the following command to build the Docker image:
