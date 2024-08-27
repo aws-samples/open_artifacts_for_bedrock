@@ -25,15 +25,16 @@ export default function Home() {
   }
   const userID = session?.user?.name || 'default-user-id'
 
-  const { messages, setMessages, reload, input,isLoading, setInput, append, handleInputChange, handleSubmit, data } = useChat({
+  const { messages, setMessages, reload, input,isLoading, setInput, append, handleInputChange, handleSubmit, data ,stop} = useChat({
     api: '/api/chat',
+    keepLastMessageOnError: true,
     body: { userID },
-    onResponse: (response: Response) => {
-      console.log('Received response from server:', response)
-    },
-    onFinish: (message: Message) => {
-      console.log('Finished streaming message:', message)
-    },
+    // onResponse: (response: Response) => {
+    //   console.log('Received response from server:', response)
+    // },
+    // onFinish: (message: Message) => {
+    //   console.log('Finished streaming message:', message)
+    // },
 
   })
 
@@ -68,6 +69,7 @@ export default function Home() {
       </button>
       <div className="flex-1 flex space-x-8 w-full pt-16 pb-8 px-4">
         <Chat
+          stop={stop}
           data ={data}
           messages={messages}
           append={append}

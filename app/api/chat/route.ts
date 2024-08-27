@@ -105,7 +105,13 @@ export async function POST(req: Request) {
   let llmModel;
   if (process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY){
     console.log('using bedrock client specified from env')
-    llmModel = bedrock(process.env.MODEL_ID || 'anthropic.claude-3-5-sonnet-20240620-v1:0');
+    // llmModel = bedrock(process.env.MODEL_ID || 'anthropic.claude-3-5-sonnet-20240620-v1:0');
+    const bedrockClient = createAmazonBedrock({
+      region: 'us-east-1',
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    });
+    llmModel = bedrockClient(process.env.MODEL_ID || 'anthropic.claude-3-5-sonnet-20240620-v1:0');
   }else{ 
     console.log('using default bedrock client')
     //use default credentials from the ec2 role or aws credentials
@@ -173,9 +179,10 @@ export async function POST(req: Request) {
   console.log('newMessages:',newMessages)
 
   // console.log(newMessages)
-  let streamData: StreamData = new StreamData()
+  const streamData: StreamData = new StreamData()
 
   const result = await streamText({
+    // experimental_toolCallStreaming: true,
     model: llmModel,
     temperature:0,
     tools: {
@@ -271,14 +278,20 @@ export async function POST(req: Request) {
         </code_snippet>
     </guidance>
     `,
+    onFinish() {
+      streamData.close();
+    },
+    abortSignal: req.signal,
     messages:newMessages as CoreMessage[],
   })
 
-  const stream = result.toAIStream({
-    async onFinal() {
-      await streamData.close()
-    }
-  })
+  // const stream = result.toAIStream({
+  //   async onFinal() {
+  //     await streamData.close()
+  //   }
+  // })
 
-  return new StreamingTextResponse(stream, {}, streamData);
+  // return new StreamingTextResponse(stream, {}, streamData);
+  // console.log(streamData)
+  return result.toDataStreamResponse({data:streamData});
 }

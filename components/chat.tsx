@@ -1,5 +1,5 @@
 import { useState, useEffect, FormEvent, useCallback, useRef } from 'react'
-import { Terminal, Image as ImageIcon ,Paperclip,Trash2,FileText, FileSpreadsheet, FileUp,RefreshCw} from 'lucide-react'
+import { Terminal, Image as ImageIcon ,Paperclip,Trash2,FileText, FileSpreadsheet, FileUp,RefreshCw,CircleX} from 'lucide-react'
 import { Message } from 'ai/react'
 import type {
   ChatRequestOptions,
@@ -25,7 +25,8 @@ export function Chat({
   reload,
   isLoading,
   setInput,
-  clearMessages
+  clearMessages,
+  stop,
 }: {
   data: JSONValue[] | undefined,
   messages: Message[],
@@ -36,7 +37,8 @@ export function Chat({
   reload: (chatRequestOptions?: ChatRequestOptions | undefined) => Promise<string | null | undefined>,
   isLoading:boolean,
   setInput: (e: any) => void,
-  clearMessages: () => void
+  clearMessages: () => void,
+  stop:()=> void,
 }) {
   const [files, setFiles] = useState<FileData[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -237,6 +239,7 @@ export function Chat({
             value={input}
             onChange={(event) => setInput(event.target.value)}
             onPaste={handlePaste}
+            disabled={isLoading}
           />
           <button
             type="button"
@@ -261,6 +264,14 @@ export function Chat({
           >
             <RefreshCw size={24} />
           </button>
+          {isLoading && (
+            <button
+             type="button" onClick={() => stop()}
+             className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+             >
+              <CircleX size={24} />
+            </button>
+          )}
         </div>
       </form>
     </div>

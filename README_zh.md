@@ -37,9 +37,9 @@ sudo chmod 666 /var/run/docker.sock
 ```
 ## 使用说明
 ### 1. 配置docker image
-1. 进入open_artifacts/docker_files
+1. 进入open_artifacts_for_bedrock/docker_files
 ```bash
-cd open_artifacts/docker_files
+cd open_artifacts_for_bedrock/docker_files
 ```
 
 2. 在本文件夹下（包含 Dockerfile） 的目录中打开终端，运行以下命令来构建 Docker 镜像：
