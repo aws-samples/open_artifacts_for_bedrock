@@ -184,7 +184,7 @@ export async function POST(req: Request) {
   const result = await streamText({
     // experimental_toolCallStreaming: true,
     model: llmModel,
-    temperature:0,
+    temperature:0.5,
     tools: {
       runPython: tool({
         description: 'Runs Python code. such as data analysis, data exploration, math,etc',
@@ -258,7 +258,7 @@ export async function POST(req: Request) {
     You are very familiar with the following tools and libraries:
     For Python:
     <python_libraries>
-    pandas, numpy, matplotlib, seaborn, scikit-learn, diagrams, etc.
+    pandas, numpy, matplotlib, seaborn, scikit-learn, diagrams, sympy etc.
     </python_libraries>
 
     For JavaScript:
