@@ -97,11 +97,11 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
   const audioQueueRef = useRef<AudioChunk[]>([]);
   const isPlayingRef = useRef<boolean>(false);
   const audioContextPlaybackRef = useRef<AudioContext | null>(null);
-  const lastSampleRef = useRef<Float32Array | null>(null); // Store last few samples for crossfading
+  const lastSampleRef = useRef<Float32Array<ArrayBuffer> | null>(null); // Store last few samples for crossfading
   const crossfadeSamples = 128; // Number of samples to use for crossfading
-  
+
   // Function to apply a simple low-pass filter to reduce high-frequency noise
-  const applyLowPassFilter = (samples: Float32Array): Float32Array => {
+  const applyLowPassFilter = (samples: Float32Array<ArrayBufferLike>): Float32Array<ArrayBuffer> => {
     const result = new Float32Array(samples.length);
     const alpha = 0.2; // Filter strength (0-1), higher means more filtering
     
@@ -116,7 +116,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
   };
   
   // Function to apply fade in/out to reduce clicks and pops
-  const applyFades = (samples: Float32Array, fadeInSamples: number = 64, fadeOutSamples: number = 64): Float32Array => {
+  const applyFades = (samples: Float32Array<ArrayBufferLike>, fadeInSamples: number = 64, fadeOutSamples: number = 64): Float32Array<ArrayBuffer> => {
     const result = new Float32Array(samples);
     
     // Apply fade in
@@ -136,9 +136,9 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
   };
   
   // Function to crossfade between audio chunks to reduce clicks
-  const applyCrossfade = (currentSamples: Float32Array, lastSamples: Float32Array | null): Float32Array => {
+  const applyCrossfade = (currentSamples: Float32Array<ArrayBufferLike>, lastSamples: Float32Array<ArrayBuffer> | null): Float32Array<ArrayBuffer> => {
     if (!lastSamples || lastSamples.length === 0) {
-      return currentSamples;
+      return new Float32Array(currentSamples);
     }
     
     const result = new Float32Array(currentSamples);
@@ -158,7 +158,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
   };
   
   // Function to normalize audio to prevent clipping
-  const normalizeAudio = (samples: Float32Array, targetLevel: number = 0.8): Float32Array => {
+  const normalizeAudio = (samples: Float32Array<ArrayBufferLike>, targetLevel: number = 0.8): Float32Array<ArrayBuffer> => {
     // Find the maximum amplitude
     let maxAmp = 0;
     for (let i = 0; i < samples.length; i++) {
@@ -167,7 +167,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
     
     // If the audio is already below target level, don't change it
     if (maxAmp <= targetLevel) {
-      return samples;
+      return new Float32Array(samples);
     }
     
     // Calculate gain to bring max amplitude to target level
@@ -541,7 +541,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
       
       // 创建缓冲区
       const resamplerBuffer = offlineContext.createBuffer(1, inputData.length, sourceSampleRate);
-      resamplerBuffer.copyToChannel(inputData, 0);
+      resamplerBuffer.copyToChannel(new Float32Array(inputData), 0);
       
       // 创建源节点
       const source = offlineContext.createBufferSource();
