@@ -559,8 +559,8 @@ export class EcsFargateStack extends cdk.Stack {
 
     // 12. Create Frontend Task Definition
     const frontendTaskDefinition = new ecs.FargateTaskDefinition(this, `${prefix}-frontend-task`, {
-      memoryLimitMiB: 512*2,
-      cpu: 256*2,
+      memoryLimitMiB: 512*4,
+      cpu: 256*4s,
       taskRole: taskRole,
       executionRole: taskExecutionRole,
       runtimePlatform: {
@@ -571,7 +571,7 @@ export class EcsFargateStack extends cdk.Stack {
 
     const frontendContainer = frontendTaskDefinition.addContainer(`${prefix}-frontend-container`, {
       image: ecs.ContainerImage.fromEcrRepository(frontendRepo, 'latest'),
-      memoryLimitMiB: 512,
+      memoryLimitMiB: 512*2,
       environment: {
         NODE_ENV: 'production',
         SERVER_MCP_BASE_URL: `http://${this.alb.loadBalancerDnsName}`,
