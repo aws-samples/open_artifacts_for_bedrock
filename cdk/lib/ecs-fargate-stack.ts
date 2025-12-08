@@ -560,7 +560,7 @@ export class EcsFargateStack extends cdk.Stack {
     // 12. Create Frontend Task Definition
     const frontendTaskDefinition = new ecs.FargateTaskDefinition(this, `${prefix}-frontend-task`, {
       memoryLimitMiB: 512*4,
-      cpu: 256*4s,
+      cpu: 256*4,
       taskRole: taskRole,
       executionRole: taskExecutionRole,
       runtimePlatform: {
