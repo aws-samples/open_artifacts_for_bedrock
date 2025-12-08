@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { proxyPostRequest } from '../../utils';
+import { proxyPostRequest } from '../../../../lib/api-utils';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {

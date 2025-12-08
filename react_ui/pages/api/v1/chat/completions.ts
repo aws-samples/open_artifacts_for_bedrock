@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { proxyPostRequest } from '../../utils';
+import { proxyPostRequest } from '../../../../lib/api-utils';
 
 // Configure API route to handle large request bodies for image content
 export const config = {

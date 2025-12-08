@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { proxyDeleteRequest } from '../../../utils';
+import { proxyDeleteRequest } from '../../../../../lib/api-utils';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'DELETE') {
