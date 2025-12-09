@@ -96,12 +96,7 @@ class StrandsAgentClient(ChatClient):
                     region_name=self.env['AWS_REGION']
                 )
             
-            additional_request_fields = {
-                    "thinking": {
-                        "type":"enabled" if thinking else 'disabled',
-                        "budget_tokens": thinking_budget,
-                    }
-                } if thinking else {}
+            additional_request_fields = {}
             
             if is_interleaved_claude_thinking(model_id):
                 additional_request_fields['anthropic_beta'] = ["interleaved-thinking-2025-05-14"]
@@ -112,8 +107,22 @@ class StrandsAgentClient(ChatClient):
                 cache_tools = "default"
                 cache_prompt="default"
                 
-            if thinking and is_claude_thinking(model_id):
-                temperature = 1.0
+            if thinking :
+                if is_claude_thinking(model_id):
+                    temperature = 1.0
+                    additional_request_fields = {
+                        "thinking": {
+                            "type":"enabled" ,
+                            "budget_tokens": thinking_budget,
+                        }
+                    } 
+                elif is_nova_thinking(model_id):
+                    additional_request_fields = {
+                        "reasoningConfig": {
+                            "type":"enabled" ,
+                            "maxReasoningEffort":"low" if thinking_budget <= 512 else ( "medium" if thinking_budget <= 2048 else "high"),
+                        }
+                    } 
 
             return BedrockModel(
                 model_id=model_id,

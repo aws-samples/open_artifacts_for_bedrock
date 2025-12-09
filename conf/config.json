@@ -59,6 +59,10 @@
 		{
 			"model_id": "us.amazon.nova-pro-v1:0",
 			"model_name": "Amazon Nova Pro v1"
+		},
+		{
+			"model_id": "global.amazon.nova-2-lite-v1:0",
+			"model_name": "Amazon Nova 2 lite"
 		}
 	],
 	"mcpServers": {

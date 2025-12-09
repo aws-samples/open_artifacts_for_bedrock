@@ -8,6 +8,7 @@ CLAUDE_45_HAIKU_MODEL_ID = 'anthropic.claude-haiku-4-5-20251001-v1:0'
 CLAUDE_45_OPUS_MODEL_ID = 'anthropic.claude-opus-4-5-20251101-v1:0'
 NOVA_RPO_MODEL_ID = 'us.amazon.nova-pro-v1:0'
 NOVA_LITE_MODEL_ID = 'us.amazon.nova-lite-v1:0'
+NOVA_2_LITE_MODEL_ID = 'amazon.nova-2-lite-v1:0'
 
 def is_claude_thinking(model_id):
     return  ( CLAUDE_37_SONNET_MODEL_ID in model_id 
@@ -17,6 +18,10 @@ def is_claude_thinking(model_id):
             or CLAUDE_45_HAIKU_MODEL_ID in model_id
             or CLAUDE_45_OPUS_MODEL_ID in model_id
             )
+    
+def is_nova_thinking(model_id):
+    return NOVA_2_LITE_MODEL_ID in model_id
+    
     
 def is_interleaved_claude_thinking(model_id):
     return ( CLAUDE_4_SONNET_MODEL_ID in model_id 
