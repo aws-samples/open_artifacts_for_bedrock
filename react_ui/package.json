@@ -12,7 +12,7 @@
     "generate-certs": "node generate-certs.js"
   },
   "dependencies": {
-    "@aws-sdk/client-secrets-manager": "^3.826.0",
+    "@aws-sdk/client-secrets-manager": "^3.987.0",
     "@radix-ui/react-dialog": "^1.1.6",
     "@radix-ui/react-dropdown-menu": "^2.1.6",
     "@radix-ui/react-label": "^2.1.2",
